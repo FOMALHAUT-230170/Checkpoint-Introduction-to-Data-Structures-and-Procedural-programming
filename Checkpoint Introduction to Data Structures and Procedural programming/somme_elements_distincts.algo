@@ -1,0 +1,42 @@
+ALGORITHM somme_elements_distincts
+VAR
+    set1 : ARRAY_OF INTEGER[4] :=;
+    set2 : ARRAY_OF INTEGER[5] :=;
+    somme : INTEGER := 0;
+    i, j : INTEGER;
+    trouve : BOOLEAN;
+BEGIN
+    // 1. Comparer chaque élément de set1 avec set2
+    FOR i FROM 0 TO 3 DO
+        trouve := FALSE;
+        FOR j FROM 0 TO 4 DO
+            IF (set1[i] = set2[j]) THEN
+                trouve := TRUE; // L'élément est présent dans les deux
+                BREAK;
+            END_IF
+        END_FOR
+        
+        // Si l'élément n'est pas présent dans set2, on l'ajoute
+        IF (trouve = FALSE) THEN
+            somme := somme + set1[i];
+        END_IF
+    END_FOR
+
+    // 2. Faire l'inverse : comparer chaque élément de set2 avec set1
+    FOR i FROM 0 TO 4 DO
+        trouve := FALSE;
+        FOR j FROM 0 TO 3 DO
+            IF (set2[i] = set1[j]) THEN
+                trouve := TRUE;
+                BREAK;
+            END_IF
+        END_FOR
+        
+        // Si l'élément n'est pas présent dans set1, on l'ajoute
+        IF (trouve = FALSE) THEN
+            somme := somme + set2[i];
+        END_IF
+    END_FOR
+
+    Write("La somme des éléments distincts est : ", somme); // Affiche 13
+END

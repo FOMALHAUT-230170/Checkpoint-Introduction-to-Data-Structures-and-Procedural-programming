@@ -1,0 +1,46 @@
+// Procédure de calcul du produit scalaire
+PROCEDURE dot_product(v1, v2 : ARRAY_OF REAL[3]; VAR ps : REAL)
+VAR
+    i : INTEGER;
+BEGIN
+    ps := 0.0;
+    FOR i FROM 0 TO 2 DO
+        ps := ps + (v1[i] * v2[i]);
+    END_FOR
+END
+
+// Algorithme principal
+ALGORITHM vecteurs_orthogonaux_procedure
+VAR
+    v1, v2 : ARRAY_OF REAL[3];
+    ps_resultat : REAL;
+    n, k, i : INTEGER;
+BEGIN
+    Write("Entrez le nombre de couples de vecteurs (n) : ");
+    Read(n);
+
+    // Boucle pour traiter les n couples
+    FOR k FROM 1 TO n DO
+        Write("--- Couple de vecteurs N° ", k, " ---");
+        
+        // Saisie du premier vecteur
+        FOR i FROM 0 TO 2 DO
+            Write("v1[", i, "] = "); Read(v1[i]);
+        END_FOR
+        
+        // Saisie du second vecteur
+        FOR i FROM 0 TO 2 DO
+            Write("v2[", i, "] = "); Read(v2[i]);
+        END_FOR
+
+        // Appel de la procédure (passage par référence pour ps_resultat)
+        dot_product(v1, v2, ps_resultat);
+
+        // Vérification de l'orthogonalité
+        IF (ps_resultat = 0.0) THEN
+            Write("Les vecteurs sont orthogonaux.");
+        ELSE
+            Write("Les vecteurs ne sont pas orthogonaux. Produit scalaire = ", ps_resultat);
+        END_IF
+    END_FOR
+END
